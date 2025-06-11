@@ -8,10 +8,9 @@ fi
 
 FILE=$1
 
-# 1) Scan with ClamAV (verbose)
 echo "=== ClamAV scan ==="
 clamscan -v --stdout "$FILE" || true
 echo "=== End ClamAV ==="
 
-# 2) Scan with python + YARA rules
+echo "=== YARA scan ==="
 python3 /app/scan_with_yara.py "$FILE"

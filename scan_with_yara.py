@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""Scan a given file with all YARA rules present inside signature-base/yara directory.
-Printed output will show matches in a colored table (Rich).
-"""
 import sys
 import os
 from pathlib import Path
@@ -25,7 +22,7 @@ def load_rules(external_vars: dict):
             sources[str(idx)] = rf.read_text(encoding="utf-8", errors="ignore")
         except Exception as exc:
             console.print(f"[yellow]Skipping rule {rf}: {exc}[/yellow]", file=sys.stderr)
-    # Attempt to compile, automatically adding missing external variables if necessary
+    # compile; add missing external vars on the fly
     while True:
         try:
             compiled = yara.compile(sources=sources, externals=external_vars)
@@ -34,7 +31,6 @@ def load_rules(external_vars: dict):
             m = re.search(r"undefined identifier \"(\w+)\"", str(exc))
             if m:
                 missing = m.group(1)
-                # Provide empty string default for missing external variable
                 if missing not in external_vars:
                     external_vars[missing] = ""
                     continue  # retry compile
@@ -49,7 +45,7 @@ def main():
         console.print(f"[red]File {target} does not exist[/red]", file=sys.stderr)
         sys.exit(1)
 
-    # Prepare common external variables for rule sets that expect them
+    # common externals
     external_vars = {
         "filepath": str(target),
         "filename": target.name,
