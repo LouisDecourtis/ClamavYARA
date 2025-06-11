@@ -41,14 +41,24 @@ docker run --rm -v "$(pwd)":/workspace hta-pipeline /workspace/Simulation_rancon
 Output:
 ```
 === ClamAV scan ===
-…
+Scanning /workspace/Simulation_rancongiciel.hta
+/workspace/Simulation_rancongiciel.hta: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 8707245
+Engine version: 0.103.12
+Scanned files: 1
+Infected files: 0
+Time: 12 sec
 === End ClamAV ===
-[blue]Scanned 7xx rules. Detections: 1[/blue]
-┏━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Rule    ┃ Tags   ┃ Meta                 ┃
-┡━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
-│ custom_detect_ransom_hta │ - │ author=cascade │
-└─────────┴────────┴──────────────────────┘
+Scanned 715 rules. Detections: 1
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Rule                     ┃ Tags ┃ Meta                                       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ custom_detect_ransom_hta │ -    │ author=cascade,description=Detects the     │
+│                          │      │ Simulation_rancongiciel.hta test file      │
+└──────────────────────────┴──────┴────────────────────────────────────────────┘
 ```
 Exit code `100` if YARA detects anything, `0` otherwise.
 
